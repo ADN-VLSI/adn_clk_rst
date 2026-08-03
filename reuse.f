@@ -1,4 +1,4 @@
-${ADN_TEMPLATE}/interface/dummy_interface.sv
-${ADN_TEMPLATE}/source/dummy_rtl.sv
+${ADN_CLK_RST}/interface/dummy_interface.sv
+${ADN_CLK_RST}/source/dummy_rtl.sv
+-i ${ADN_CLK_RST}/include
 -i ${ADN_COMMON}/include
--i ${ADN_TEMPLATE}/include
