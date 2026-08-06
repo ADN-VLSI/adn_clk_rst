@@ -1,7 +1,5 @@
 # adn_clk_rst_clk_div (module)
 
-### Author: Foez Ahmed
-
 ### Source: adn_clk_rst_clk_div.sv
 
 ## Top IO
@@ -27,7 +25,4 @@
 
 ## Description
 
-Module: adn_clk_rst_clk_div
-Author: Foez Ahmed
-Brief: One-line summary.
-Details: Optional multi-line behavior notes.
+_No top-level description found._
