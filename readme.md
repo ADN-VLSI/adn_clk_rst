@@ -2,7 +2,7 @@
 
 ## SOURCE
 [`adn_clk_rst_clk_div`](document/source/adn_clk_rst_clk_div.md)
-[`document/source/dummy_rtl.md)
+[`adn_clk_rst_dual_edge_register`](document/source/adn_clk_rst_dual_edge_register.md)
 
 [`adn_common_address_decoder`](https://github.com/ADN-VLSI/adn_common/blob/main/document/source/adn_common_address_decoder.md)
 [`adn_common_address_range_compare`](https://github.com/ADN-VLSI/adn_common/blob/main/document/source/adn_common_address_range_compare.md)
