@@ -20,7 +20,8 @@ a doubled clock frequency.
 3. Asynchronous Reset:
     - Driving `arst_ni` low asynchronously zeroes all storage elements.
 
-@foez-bhai, describe the use case of this module in markdown format here. This is already in multi-line comment, so don't add any additional comment syntax.
+### USE CASE:
+This module is ideal for high-throughput data interfaces (e.g., DDR memory controllers, source-synchronous serial links) where data must be sampled on both clock edges to maximize bandwidth without increasing the physical clock frequency, thereby saving power and simplifying clock tree distribution.
 
 | REVISION | DATE       | AUTHOR          | DESCRIPTION                                            |
 |----------|------------|-----------------|--------------------------------------------------------|

@@ -23,7 +23,11 @@ ratios while maintaining a ~50% duty cycle.
     full counter reset periods, resulting in an effective frequency division
     proportional to `div_i`.
 
-@foez-bhai, describe the use case of this module in markdown format here. This is already in multi-line comment, so don't add any additional comment syntax.
+### USE CASE:
+This module is ideal for clock tree synthesis where a stable, 50% duty cycle clock is required from a high-frequency source, especially when odd-integer division ratios are necessary. It is commonly used in:
+- **Communication Interfaces:** Generating baud rate clocks for UART or SPI.
+- **Power Management:** Reducing clock frequency to save dynamic power in idle states.
+- **System Synchronization:** Providing reference clocks to peripherals that operate at sub-multiples of the main system clock.
 
 | REVISION | DATE       | AUTHOR          | DESCRIPTION                                            |
 |----------|------------|-----------------|--------------------------------------------------------|
@@ -38,15 +42,14 @@ See LICENSE file in the project root for full license information
 
 */
 
-// @foez-bhai, add comments to the parameters, ports
 module adn_clk_rst_clk_div #(
-    parameter int DIV_WIDTH = 4
+    parameter int DIV_WIDTH = 4 // Width of the division factor register
 ) (
-    input logic                 arst_ni,  // active low asynchronous reset
-    input logic                 clk_i,    // input clock
-    input logic [DIV_WIDTH-1:0] div_i,    // input clock divider
+    input logic                 arst_ni,  // Active-low asynchronous reset
+    input logic                 clk_i,    // Input reference clock
+    input logic [DIV_WIDTH-1:0] div_i,    // Division factor input
 
-    output logic clk_o  // output clock
+    output logic clk_o  // Divided output clock
 );
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
