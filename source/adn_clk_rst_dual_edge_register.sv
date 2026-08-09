@@ -1,39 +1,41 @@
-//==============================================================================
-// Module Name : adn_clk_rst_dual_edge_register
-// Description : Dual-Edge Triggered Register (Pos/Neg Edge Flip-Flop Pair)
-//
-// PURPOSE:
-//   Captures input data (`data_i`) on BOTH the rising (`posedge`) and falling
-//   (`negedge`) edges of `clk_i` when enabled (`en_i`). It allows internal
-//   sequential logic to run at twice the effective clock rate without requiring
-//   a doubled clock frequency.
-//
-// HOW IT WORKS:
-//   1. Simulation Bypass (`SIMULATION` defined):
-//      - Uses a simple behavioral `always` block sensitive to any `clk_i` transition
-//        to update `data_o` directly for faster simulation runtimes.
-//   2. Synthesis Path (`SIMULATION` not defined):
-//      - Rising-Edge Flop (`reg_pos`): Updates on `posedge clk_i` when `en_i` is high.
-//        If `en_i` is low, it mirrors `reg_neg` to maintain cross-edge coherence.
-//      - Falling-Edge Flop (`reg_neg`): Updates on `negedge clk_i` when `en_i` is high.
-//        If `en_i` is low, it mirrors `reg_pos`.
-//      - Clock-Level Mux: A combinational mux selects `reg_pos` while `clk_i` is high
-//        and `reg_neg` while `clk_i` is low, producing a continuous dual-edge output on `data_o`.
-//   3. Asynchronous Reset:
-//      - Driving `arst_ni` low asynchronously zeroes all storage elements.
-//
-// PARAMETERS:
-//   WIDTH   : Data bus width in bits (default: 8).
-//
-// PORTS:
-//   arst_ni : Asynchronous active-low reset.
-//   clk_i   : Input clock.
-//   data_i  : Parallel data input bus [WIDTH-1:0].
-//   en_i    : Capture enable signal.
-//   data_o  : Dual-edge registered data output bus [WIDTH-1:0].
-//==============================================================================
+/*
 
-// Dual-edge storage using two edge flops and a clock-level mux on the output.
+### PURPOSE:
+Captures input data (`data_i`) on BOTH the rising (`posedge`) and falling
+(`negedge`) edges of `clk_i` when enabled (`en_i`). It allows internal
+sequential logic to run at twice the effective clock rate without requiring
+a doubled clock frequency.
+
+### HOW IT WORKS:
+1. Simulation Bypass (`SIMULATION` defined):
+    - Uses a simple behavioral `always` block sensitive to any `clk_i` transition
+      to update `data_o` directly for faster simulation runtimes.
+2. Synthesis Path (`SIMULATION` not defined):
+    - Rising-Edge Flop (`reg_pos`): Updates on `posedge clk_i` when `en_i` is high.
+      If `en_i` is low, it mirrors `reg_neg` to maintain cross-edge coherence.
+    - Falling-Edge Flop (`reg_neg`): Updates on `negedge clk_i` when `en_i` is high.
+      If `en_i` is low, it mirrors `reg_pos`.
+    - Clock-Level Mux: A combinational mux selects `reg_pos` while `clk_i` is high
+      and `reg_neg` while `clk_i` is low, producing a continuous dual-edge output on `data_o`.
+3. Asynchronous Reset:
+    - Driving `arst_ni` low asynchronously zeroes all storage elements.
+
+@foez-bhai, describe the use case of this module in markdown format here. This is already in multi-line comment, so don't add any additional comment syntax.
+
+| REVISION | DATE       | AUTHOR          | DESCRIPTION                                            |
+|----------|------------|-----------------|--------------------------------------------------------|
+| 0.1      | 2026-08-09 | Mohiuddin Reyad | Initial version                                        |
+| 1.0      | 2026-08-09 | Mohiuddin Reyad | Stable release                                         |
+
+Author : Mohiuddin Reyad (mreyad30207@gmail.com)
+This file is part of ADN-VLSI/adn_clk_rst
+Copyright (c) 2026 ADN Semiconductors
+Licensed under the MIT License
+See LICENSE file in the project root for full license information
+
+*/
+
+// @foez---bhai, add comments to the parameters, ports
 module adn_clk_rst_dual_edge_register #(
     parameter int WIDTH = 8  // Width of the register
 ) (
