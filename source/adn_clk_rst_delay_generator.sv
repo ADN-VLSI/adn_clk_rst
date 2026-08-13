@@ -71,4 +71,12 @@ module adn_clk_rst_delay_generator #(
       end
     end
   end
+
+`ifdef SIMULATION
+  initial begin
+    if (DELAY_CYCLES < 0) begin
+      $display("\033[1;31m%m Error: DELAY_CYCLES must be greater than or equal to 0\033[0m");
+    end
+  end
+`endif  // SIMULATION
 endmodule
