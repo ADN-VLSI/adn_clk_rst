@@ -1,8 +1,13 @@
 /*
 
-@foez-bhai, write the purpose of this module in markdown format here. This is already in multi-line comment, so don't add any additional comment syntax.
+### Purpose
+This module generates a programmable delay for an enable signal. It utilizes a real-time clock to count a specified number of cycles before asserting the output enable signal, which is then synchronized to the primary system clock domain.
 
-@foez-bhai, describe the use case of this module in markdown format here. This is already in multi-line comment, so don't add any additional comment syntax.
+### Use Case
+This module is primarily used in clock and reset management subsystems where a specific delay is required before enabling downstream logic. It is particularly useful for:
+- **Power-up Sequencing:** Ensuring that specific blocks are enabled only after a stable clock or power rail has been established.
+- **Reset De-assertion:** Providing a controlled delay after a system reset before allowing functional operations to commence.
+- **Synchronization:** Bridging signals between a slow real-time clock domain and a high-speed system clock domain with a deterministic latency.
 
 | REVISION | DATE       | AUTHOR          | DESCRIPTION                                            |
 |----------|------------|-----------------|--------------------------------------------------------|
@@ -17,38 +22,38 @@ See LICENSE file in the project root for full license information
 
 */
 
-// @foez-bhai, add comments to the parameters, ports
-
 module adn_clk_rst_delay_generator #(
-    parameter int DELAY_CYCLES = 10
+    parameter int DELAY_CYCLES = 10 // Number of real_time_clk_i cycles to wait
 ) (
-    input logic arst_ni,
+    input logic arst_ni,        // Active-low asynchronous reset
 
-    input logic clk_i,
-    input logic real_time_clk_i,
+    input logic clk_i,          // Primary system clock
+    input logic real_time_clk_i, // Real-time clock for delay counting
 
-    input logic enable_i,
+    input logic enable_i,       // Input enable signal
 
-    output logic enable_o
+    output logic enable_o       // Delayed and synchronized output enable
 );
-
-  // @foez-bhai, add comments to the functional blocks, signals, and submodules
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
   // SIGNALS
 //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Counter to track elapsed real-time clock cycles
   logic [$clog2(DELAY_CYCLES+1)-1:0] counter;
+  // Flag indicating the delay duration has been reached
   logic counter_done;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // ASSIGNMENTS
   //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Combinational logic to check if counter reached the target delay
   assign counter_done = (counter == DELAY_CYCLES);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
   // SEQUENTIALS
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
+  // Counter logic running on the real-time clock domain
   always_ff @(posedge real_time_clk_i or negedge arst_ni) begin
     if (!arst_ni) begin
       counter <= '0;
@@ -59,7 +64,7 @@ module adn_clk_rst_delay_generator #(
     end
   end
 
-  // Forward the enable once the delay has completed, synchronized to the clk_i domain
+  // Output synchronization logic running on the primary system clock domain
   always_ff @(posedge clk_i or negedge arst_ni) begin
     if (!arst_ni) begin
       enable_o <= 1'b0;
