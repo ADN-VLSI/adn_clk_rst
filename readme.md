@@ -3,6 +3,7 @@
 ## SOURCE
 [`adn_clk_rst_clk_div`](document/source/adn_clk_rst_clk_div.md)
 [`adn_clk_rst_clk_mux`](document/source/adn_clk_rst_clk_mux.md)
+[`adn_clk_rst_delay_generator`](document/source/adn_clk_rst_delay_generator.md)
 [`adn_clk_rst_dual_edge_register`](document/source/adn_clk_rst_dual_edge_register.md)
 
 [`adn_common_address_decoder`](https://github.com/ADN-VLSI/adn_common/blob/main/document/source/adn_common_address_decoder.md)
