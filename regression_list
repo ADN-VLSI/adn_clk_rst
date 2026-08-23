@@ -1,2 +1,3 @@
 ci_simulate dummy_tb default 0
 ci_simulate adn_clk_rst_clk_div_tb TC_ALL
+ci_simulate adn_clk_rst_delay_generator_tb TC_ALL
